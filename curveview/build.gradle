@@ -1,10 +1,50 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+//publish {
+//    def groupProjectID = 'com.revosleap.squarelayout'
+//    def artifactProjectID = 'SquareLayout'
+//    def publishVersionID = '1.0.0'
+//
+//    userOrg = 'Kevin-Kip'
+//    repoName = 'SquareLayout'
+//    groupId = groupProjectID
+//    artifactId = artifactProjectID
+//    publishVersion = publishVersionID
+//    libraryDescription = 'Android library for square layout'
+//    siteUrl = 'https://github.com/Kevin-Kip/SquareLayout'
+//
+//
+//}
+
+ext {
+    bintrayRepo = 'CurveView'
+    bintrayName = 'com.revosleap.curveview'
+
+    publishedGroupId = 'com.revosleap.curveview'
+    libraryName = 'CurveView'
+    artifact = 'CurveView'
+
+    libraryDescription = 'Android library for curved layout'
+
+    siteUrl = 'https://github.com/Kevin-Kip/CurveView'
+    gitUrl = 'https://github.com/Kevin-Kip/CurveView.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'kevinkiprotich'
+    developerName = 'Kevin Kiprotich'
+    developerEmail = 'kevkiprotich@gmail.com'
+
+    licenseName = 'The MIT License'
+    licenseUrl = 'https://opensource.org/licenses/MIT'
+    allLicenses = ["MIT"]
+}
 
 android {
     compileSdkVersion 28
-
 
     defaultConfig {
         minSdkVersion 15
@@ -19,7 +59,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -31,4 +71,85 @@ dependencies {
 }
 repositories {
     mavenCentral()
+}
+
+group = publishedGroupId
+version = libraryVersion
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            packaging 'aar'
+            groupId publishedGroupId
+            artifactId artifact
+
+            name libraryName
+            description libraryDescription
+            url siteUrl
+
+            licenses {
+                license {
+                    name licenseName
+                    url licenseUrl
+                }
+            }
+            developers {
+                developer {
+                    id developerId
+                    name developerName
+                    email developerEmail
+                }
+            }
+            scm {
+                connection gitUrl
+                developerConnection gitUrl
+                url siteUrl
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+
+artifacts {
+//    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = bintrayRepo
+        name = bintrayName
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        dryRun = false
+        publish = true
+        override = false
+        publicDownloadNumbers = true
+        version {
+            desc = libraryDescription
+        }
+    }
 }
