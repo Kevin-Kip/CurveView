@@ -1,4 +1,6 @@
 package com.revosleap.curveview
 
-enum class CurveDirection {
-}
+ object CurveDirection {
+     const val TOP = 0
+     const val BOTTOM = 1
+ }
