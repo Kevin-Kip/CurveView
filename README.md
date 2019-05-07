@@ -2,7 +2,7 @@
 Android View with a curved edge.
 Initial project is [here](https://github.com/akhilesh9205/CurveView). The last commit  was in 2017, so I took it and converted to kotlin.
 
-[ ![Download]() ](https://bintray.com/carloscj6/Libs/SimpleAdapter/1.0.0/link)
+[ ![Download](https://api.bintray.com/packages/kevinkiprotich/CurveView/com.revosleap.curveview/images/download.svg) ](https://bintray.com/kevinkiprotich/CurveView/com.revosleap.curveview/_latestVersion)
 
 ## Table of Contents  
 1. [Gradle dependency](#gradle-dependency)  
@@ -18,9 +18,18 @@ Initial project is [here](https://github.com/akhilesh9205/CurveView). The last c
 ```gradle  
 dependencies {  
  ...
- implementation
+ implementation 'com.revosleap.curveview:CurveView:1.0.0'
  }  
 ```  
+
+```xml
+<dependency>
+  <groupId>com.revosleap.curveview</groupId>
+  <artifactId>CurveView</artifactId>
+  <version>1.0.0</version>
+  <type>pom</type>
+</dependency>
+```
 <h3 id="usage">Usage</h3>  
 
 >XML
