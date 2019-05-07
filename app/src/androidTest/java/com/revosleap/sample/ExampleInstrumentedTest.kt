@@ -1,4 +1,4 @@
-package com.revosleap.curveview
+package com.revosleap.sample
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

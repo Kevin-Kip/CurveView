@@ -1,4 +1,4 @@
-package com.revosleap.curveview
+package com.revosleap.sample
 
 import org.junit.Test
 
